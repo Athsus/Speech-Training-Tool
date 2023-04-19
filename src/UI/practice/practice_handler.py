@@ -33,7 +33,6 @@ class MyPractice(QMainWindow, Ui_Form):
         self.START.clicked.connect(self.on_click)
         self.PAUSE.clicked.connect(self.on_click)
         self.HALT.clicked.connect(self.on_click)
-
         self.LOAD.clicked.connect(self.on_click)
         self.LAST.clicked.connect(self.on_click)
         self.NEXT.clicked.connect(self.on_click)
@@ -80,11 +79,20 @@ class MyPractice(QMainWindow, Ui_Form):
 
 
     def __player(self):
+        """
+        播放录音
+        :return:
+        """
         from src.UI.player.player import AudioPlayer
         self.player = AudioPlayer()
         self.player.show()
 
     def __evaluate(self):
+        """
+        点击评价，展示评价界面
+        :return:
+        """
+        # 先停止录音
         self.__halt()
         # 没有读过就不要评价
         if self.has_saved_audio is False:
@@ -129,7 +137,13 @@ class MyPractice(QMainWindow, Ui_Form):
         self.index.show()
         self.hide()
 
-    def to_ith_ppt(self, i):
+    def __to_ith_ppt(self, i):
+        """
+        跳转到第i张ppt, 从1开始
+        主要被show_all_ppts调用
+        :param i:
+        :return:
+        """
         self.now_page = i
         self.__show()
 
@@ -140,7 +154,8 @@ class MyPractice(QMainWindow, Ui_Form):
         from src.UI.practice.show_all_ppts_handler import Show_all_ppts
         self.show_all_ppts = Show_all_ppts(self.__png_li)
         self.show_all_ppts.show()
-        self.show_all_ppts.ppt_changed.connect(self.to_ith_ppt)
+        # 如果点击了某一张ppt，就会发射ppt_changed信号，这里接收到信号后，就会调用to_ith_ppt函数
+        self.show_all_ppts.ppt_changed.connect(self.__to_ith_ppt)
 
 
     def __last(self):
@@ -156,6 +171,7 @@ class MyPractice(QMainWindow, Ui_Form):
 
     def __show(self):
         """
+        思路
         将self.__png_li[self.now_page]中的二进制png格式图片显示在self.PPT上
         将self.__text_li[self.now_page]中的文字显示在self.TEXT上
         将self.__png_li[self.now_page + 1]中的图片显示在self.PPT_2上,如果没有，显示全黑图像
@@ -223,14 +239,12 @@ class MyPractice(QMainWindow, Ui_Form):
         self.rtasr.start()
 
     def __pause(self):
-
         self.TIMER.stop()
         # 暂停录音
         if self.rtasr.isRunning():
             self.rtasr.close()
 
     def __halt(self):
-
         self.TIMER.stop()
         self.TIMER.reset()
 

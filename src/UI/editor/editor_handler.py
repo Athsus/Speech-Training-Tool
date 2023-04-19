@@ -19,7 +19,7 @@ import aspose.pydrawing as drawing
 import io
 
 from src.UI.components.clickable_label import MyQLabel
-from src.UI.components.ret_thread import MyThread
+from src.UI.components.returnable_qthread import MyThread
 from src.text_correction_module.text_correction import TextCorrection
 
 

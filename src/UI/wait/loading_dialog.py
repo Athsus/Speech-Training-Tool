@@ -11,5 +11,6 @@ class LoadingDialog(QDialog, Ui_Form):
         self.setWindowFlags(Qt.Qt.FramelessWindowHint)
         self.setModal(True)
         self.setStyleSheet("background-color: rgb(69, 83, 100);")
+        # to center
         self.move(parent.width() / 2 - self.width() / 2, parent.height() / 2 - self.height() / 2)
         self.setVisible(True)

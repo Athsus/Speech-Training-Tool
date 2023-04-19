@@ -8,7 +8,7 @@ from src.UI.constants import PUNCTUATION_REGEX_STR, PUNCTUATION_DICT
 from src.UI.raw_uis.evaluate import Ui_Form
 import re
 
-from src.UI.utils.graph_plot import MyFigure
+from src.UI.components.graph_ploter import MyFigure
 
 
 class MyEvaluate(QMainWindow, Ui_Form):

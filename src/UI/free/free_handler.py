@@ -95,7 +95,6 @@ class MyFree(QMainWindow, Ui_Free):
         开始录音识别
         :return:
         """
-
         if self.rtasr.isRunning():
             print("不可多按")
             return

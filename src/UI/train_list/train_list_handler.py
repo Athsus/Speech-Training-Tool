@@ -15,8 +15,10 @@ class MyTrainList(QMainWindow, Ui_Form):
         super(MyTrainList, self).__init__(parent)
         self.setupUi(self)
 
+        # 保存所有静态稿件的list
         self.__static_manuscripts_li = []
 
+        # 加载所有静态稿件
         self.__load_static_manuscript()
 
         self.BACK.clicked.connect(self.on_clicked)
