@@ -1,0 +1,12 @@
+PyQt5~=5.15.4
+reportlab~=3.6.12
+Pillow~=9.2.0
+PyAudio~=0.2.13
+numpy~=1.21.0
+matplotlib~=3.6.1
+QtPy~=2.2.1
+websocket~=0.2.1
+websocket-client~=1.5.0
+xmltodict~=0.13.0
+requests~=2.27.1
+QDarkStyle~=3.1

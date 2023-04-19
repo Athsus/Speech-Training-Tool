@@ -1,0 +1,1 @@
+C:\Users\rua\AppData\Local\Programs\Python\Python39\python.exe -m PyInstaller --onefile main.py --copy-metadata pythonnet --path C:\Users\rua\AppData\Local\Programs\Python\Python39\Lib\site-packages\PyQt5\Qt5\bin --hiddenimport=aspose.pydrawing --hiddenimport=aspose.pygc --collect-binaries=aspose
