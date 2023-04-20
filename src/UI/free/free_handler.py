@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow
 
 from src.UI.raw_uis.free import Ui_Free
 
-from src.evaluate_module.ise import IFlytekISE
+from src.evaluate_handler.ise import IFlytekISE
 from src.recongnition_handler.rtasr import IFlytekRTASR
 
 
