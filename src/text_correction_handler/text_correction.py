@@ -15,6 +15,8 @@ from urllib.parse import urlencode
 import json
 import requests
 
+from src.text_correction_handler.utils import extract_error_positions, get_result_sub_list
+
 APPId = "127aa6c2"
 APISecret = "YTY0ZTI5ZGZlYjNmNTQ4NDA5OWRjMWRl"
 APIKey = "a1ed716096e65662538dc24e6e532d03"
@@ -135,7 +137,10 @@ class TextCorrection:
         return body
 
     def get_result(self):
-        """IflyTek api"""
+        """
+        IflyTek api
+        :return: parsed result
+        """
         request_url = self.assemble_ws_auth_url(self.url, "POST", self.apikey, self.apisecret)
         headers = {'content-type': "application/json", 'host': 'api.xf-yun.com', 'app_id': self.appid}
         body = self.get_body()
@@ -145,11 +150,11 @@ class TextCorrection:
         res = base64.b64decode(tempResult['payload']['result']['text']).decode()
         # print('text字段解析：\n' + res)
         res = json.loads(res)
-        return res
+        parsed_result = self.parse_result(res, self.text)
+        return parsed_result
 
-    def parse_result(self, result: dict) -> str:
+    def parse_result(self, result: dict, text: str):
         """
-        todo 转移过来比较好
         解析一个result
         其中的Key为（前者的key，比如pol是"pol"，后者是其“解释意义”）
         pol 政治术语纠错
@@ -172,12 +177,17 @@ class TextCorrection:
         [10, '画蛇天足', ‘画蛇添足’, 'idm' ]
         (出现的index, 原成语, 纠正成语, 语法错误种类(此处是成语错误idm))
 
-        :return: 输出返回一个一个HTML格式的字符串，
-        最终会设置在pyqt5组件的textEdit中，self.text是完整的文章，通过result的内容设置为，错误的内容（错别字，错别词等）标黄，并且鼠标放在这个位置会在其旁边跳出框，显示对应的”解释意义“。
+        :return:
+            corrected_text: 输出返回一个一个HTML格式的字符串
+            result_sub_list
+            error_positions
 
         parse ref doc: https://www.xfyun.cn/doc/nlp/textCorrection/API.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C
         """
-        pass
+
+        corrected_text, result_sub_list = get_result_sub_list(text, result)
+        error_positions = extract_error_positions(corrected_text)
+        return corrected_text, result_sub_list, error_positions
 
 
 # 单独调用示例
@@ -186,4 +196,4 @@ if __name__ == '__main__':
 
     demo = TextCorrection(Text)
     result = demo.get_result()  # demo的获得res
-    print("?")
+    print(result)

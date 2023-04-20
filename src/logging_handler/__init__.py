@@ -1,6 +1,6 @@
 import sys
 
-from src.logging_module.event_logger import EventLogger
+from src.logging_handler.event_logger import EventLogger
 
 
 def apply_logger():

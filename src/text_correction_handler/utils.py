@@ -1,7 +1,7 @@
 import re
 
 
-def parse_result(text, result):
+def get_result_sub_list(text, result):
     """
     :return: (tuple) (HTML_formed str, innder list of result)
     """

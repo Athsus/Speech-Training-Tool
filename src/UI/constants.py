@@ -19,3 +19,4 @@ ERROR_TRNASLATION = {
     "name": "全文人名纠错",
     "grammar_pc": "句式杂糅&语义重复",
 }
+FACECADE_BYTES = b'11111010110011101100101011011110'

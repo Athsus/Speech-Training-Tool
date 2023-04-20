@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from src.UI.raw_uis.practice import Ui_Form
 from src.UI.practice.timer import TimerLabel
 from src.evaluate_module.ise import IFlytekISE
-from src.recongnition_module.rtasr import IFlytekRTASR
+from src.recongnition_handler.rtasr import IFlytekRTASR
 
 import re
 

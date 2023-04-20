@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QMainWindow
 from src.UI.raw_uis.free import Ui_Free
 
 from src.evaluate_module.ise import IFlytekISE
-from src.recongnition_module.rtasr import IFlytekRTASR
+from src.recongnition_handler.rtasr import IFlytekRTASR
 
 
 # todo: 录音结束会崩溃?

@@ -1,7 +1,5 @@
 import datetime
 import pickle
-import re
-import time
 
 from PIL import Image
 from PIL.ImageQt import ImageQt
@@ -9,9 +7,8 @@ from PyQt5.QtCore import QEvent, QPoint, Qt, QTimer
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel
 
-from src.UI.constants import ERROR_TRNASLATION
-from src.UI.editor.exporter import PPTExporter
-from src.UI.editor.text_correction_handler import extract_error_positions, parse_result
+from src.UI.constants import ERROR_TRNASLATION, FACECADE_BYTES
+from src.ppt_handler.PPTExporter import PPTExporter
 from src.UI.raw_uis.editor import Ui_Form
 
 import aspose.slides as slides
@@ -20,15 +17,13 @@ import io
 
 from src.UI.components.clickable_label import MyQLabel
 from src.UI.components.returnable_qthread import MyThread
-from src.text_correction_module.text_correction import TextCorrection
+from src.text_correction_handler.text_correction import TextCorrection
 
 
 class MyEditor(QMainWindow, Ui_Form):
     def __init__(self, parent=None):
         super(MyEditor, self).__init__(parent)
         self.setupUi(self)
-
-        self.__FACECADE = b'11111010110011101100101011011110'
 
         self.LOAD.clicked.connect(self.on_click)
         self.SAVE.clicked.connect(self.on_click)
@@ -92,12 +87,9 @@ class MyEditor(QMainWindow, Ui_Form):
 
         # 纠正评测
         text = self.textEdit.toPlainText()
-        text_cor = TextCorrection(text)
-        self.result = text_cor.get_result()
+        text_correction = TextCorrection(text)
+        corrected_text, result_sub_list, self.error_positions = text_correction.get_result()
 
-        corrected_text, result_sub_list = parse_result(text, self.result)
-
-        # set UIs todo 放别的地方，太冗杂了代码
         self.textEdit.setHtml(corrected_text)
         self.textEdit.viewport().installEventFilter(self)
         self.textEdit.setMouseTracking(True)
@@ -107,7 +99,6 @@ class MyEditor(QMainWindow, Ui_Form):
         self.tooltip_label.setStyleSheet("QLabel {background-color: rgba(245, 204, 8, 122); border: 1px solid black; font-color: black}")
         self.tooltip_label.hide()
 
-        self.error_positions = extract_error_positions(corrected_text)
 
         self.plain_text_error_positions = []
         for start, contents, cor_text, error_type in result_sub_list:
@@ -115,6 +106,10 @@ class MyEditor(QMainWindow, Ui_Form):
             self.plain_text_error_positions.append((start, length, error_type, cor_text))
 
     def update_error_positions(self):
+        """
+        更新纯文本错误位置列表
+        :return:
+        """
         # 获取当前纯文本内容
         current_plain_text = self.textEdit.toPlainText()
 
@@ -187,7 +182,7 @@ class MyEditor(QMainWindow, Ui_Form):
             self.is_ZD = data["is_zd"]
             length = len(data["data"]) - 1
             self.__png_li.clear()
-            self.__png_li.append(self.__FACECADE)
+            self.__png_li.append(FACECADE_BYTES)
             self.__text_li.clear()
             self.__text_li.append("FACECADE")
 

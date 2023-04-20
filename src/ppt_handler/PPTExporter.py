@@ -104,8 +104,3 @@ class PPTExporter:
         c.save()
         print(f"PDF saved to {save_path}")
 
-
-# Example usage
-# manuscript = ["facecade", "大家好", "这是一个测试ppt"]
-# exporter = PPTExporter(manuscript)
-# exporter.export_to_pdf()

@@ -4,7 +4,7 @@ import numpy as np
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QSlider, QLabel
 
-from src.recongnition_module.rtasr import CHANNELS, RATE, CHUNK
+from src.recongnition_handler.rtasr import CHANNELS, RATE, CHUNK
 
 
 class AudioThread(QThread):
