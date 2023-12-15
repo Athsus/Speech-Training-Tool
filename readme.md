@@ -1,4 +1,5 @@
 # 基于语音识别的演讲训练工具
+# Design and Implementation of a Speech Recognition-based Speech Training Tool
 是一个使用讯飞开放平台 API 进行语音识别的演讲训练工具。
 能够尝试帮助您提高演讲能力，
 提供自动语法纠错、语音评价、撰稿功能等多种功能。
