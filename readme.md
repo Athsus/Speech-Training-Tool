@@ -1,5 +1,13 @@
-# 基于语音识别的演讲训练工具
 # Design and Implementation of a Speech Recognition-based Speech Training Tool
+This is a Speech Training Tool Based on XFYUN cloud speech recongnition.
+
+It helps to train your abilities of doing presentation.
+
+Including: Grammar Correctness, Speech Evaluation, Manuscript Editing, Freely Practice.
+
+(This is my undergraduate graduation thesis project, inspired from my experience of doing presentation during many contests. Congratulation to my bachelor's degree of computer science, and thanks to NENU.)
+
+# 基于语音识别的演讲训练工具
 是一个使用讯飞开放平台 API 进行语音识别的演讲训练工具。
 能够尝试帮助您提高演讲能力，
 提供自动语法纠错、语音评价、撰稿功能等多种功能。
